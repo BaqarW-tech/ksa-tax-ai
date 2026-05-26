@@ -137,4 +137,4 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown("")
-st.caption("Built with Python · Streamlit · ZATCA regulations · Phase 1 MVP") 
+st.caption("Built with Python · Streamlit · ZATCA regulations · Phase 1 MVP")
