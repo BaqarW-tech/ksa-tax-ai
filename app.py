@@ -79,7 +79,7 @@ st.markdown("""
 <span class="badge">VAT 15%</span>
 <span class="badge">ZATCA</span>
 <span class="badge">KSA SME</span>
-<span class="badge">Phase 3 · RAG</span>
+<span class="badge">All Phases Live</span>
 """, unsafe_allow_html=True)
 
 st.divider()
@@ -118,6 +118,18 @@ features = [
         "desc": "Retrieval-augmented Q&A grounded in a curated ZATCA knowledge base, with sources shown for every answer.",
         "page": "ZATCA_Search",
     },
+    {
+        "icon": "✅",
+        "title": "Compliance Checklist",
+        "desc": "Answer a few questions about your business and get a personalized ZATCA VAT compliance checklist.",
+        "page": "Compliance_Checklist",
+    },
+    {
+        "icon": "⚠️",
+        "title": "Penalty Estimator",
+        "desc": "Estimate potential ZATCA penalty exposure for late registration, late filing, or e-invoicing violations.",
+        "page": "Penalty_Estimator",
+    },
 ]
 
 for f in features:
@@ -134,15 +146,17 @@ st.markdown("*Use the sidebar to navigate between tools.*")
 st.divider()
 
 # ── Roadmap ───────────────────────────────────────────────────────────────────
-with st.expander("🗺️ Upcoming Features (Phase 4)"):
+with st.expander("🗺️ Feature Roadmap"):
     st.markdown("""
     | Phase | Feature | Status |
     |-------|---------|--------|
+    | 1 | VAT Calculator | ✅ Live |
+    | 1 | Registration Checker | ✅ Live |
     | 2 | AI Tax Q&A (Gemini API) | ✅ Live |
     | 2 | Invoice PDF Analyzer | ✅ Live |
     | 3 | RAG over ZATCA documents | ✅ Live |
-    | 4 | Compliance Checklist Generator | 🔜 Planned |
-    | 4 | VAT Penalty Estimator | 🔜 Planned |
+    | 4 | Compliance Checklist Generator | ✅ Live |
+    | 4 | VAT Penalty Estimator | ✅ Live |
     """)
 
 # ── Disclaimer ────────────────────────────────────────────────────────────────
@@ -155,4 +169,4 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown("")
-st.caption("Built with Python · Streamlit · Gemini AI · ZATCA regulations · Phase 2")
+st.caption("Built with Python · Streamlit · Gemini AI · ZATCA regulations · Phases 1–4 complete")
