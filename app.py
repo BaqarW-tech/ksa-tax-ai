@@ -79,7 +79,7 @@ st.markdown("""
 <span class="badge">VAT 15%</span>
 <span class="badge">ZATCA</span>
 <span class="badge">KSA SME</span>
-<span class="badge">Phase 1 MVP</span>
+<span class="badge">Phase 3 · RAG</span>
 """, unsafe_allow_html=True)
 
 st.divider()
@@ -100,6 +100,24 @@ features = [
         "desc": "Enter your annual revenue to find out if VAT registration is mandatory, voluntary, or not required under ZATCA thresholds.",
         "page": "Registration_Checker",
     },
+    {
+        "icon": "💬",
+        "title": "AI Tax Q&A",
+        "desc": "Ask a Gemini-powered assistant about VAT, ZATCA rules, and e-invoicing requirements in plain language.",
+        "page": "AI_Tax_QA",
+    },
+    {
+        "icon": "🧾",
+        "title": "Invoice Analyzer",
+        "desc": "Upload an invoice PDF to extract key fields and run a quick ZATCA e-invoicing compliance check.",
+        "page": "Invoice_Analyzer",
+    },
+    {
+        "icon": "📚",
+        "title": "ZATCA Document Search",
+        "desc": "Retrieval-augmented Q&A grounded in a curated ZATCA knowledge base, with sources shown for every answer.",
+        "page": "ZATCA_Search",
+    },
 ]
 
 for f in features:
@@ -116,13 +134,13 @@ st.markdown("*Use the sidebar to navigate between tools.*")
 st.divider()
 
 # ── Roadmap ───────────────────────────────────────────────────────────────────
-with st.expander("🗺️ Upcoming Features (Phases 2–4)"):
+with st.expander("🗺️ Upcoming Features (Phase 4)"):
     st.markdown("""
     | Phase | Feature | Status |
     |-------|---------|--------|
-    | 2 | AI Tax Q&A (Claude API) | 🔜 Planned |
-    | 2 | Invoice PDF Analyzer | 🔜 Planned |
-    | 3 | RAG over ZATCA documents | 🔜 Planned |
+    | 2 | AI Tax Q&A (Gemini API) | ✅ Live |
+    | 2 | Invoice PDF Analyzer | ✅ Live |
+    | 3 | RAG over ZATCA documents | ✅ Live |
     | 4 | Compliance Checklist Generator | 🔜 Planned |
     | 4 | VAT Penalty Estimator | 🔜 Planned |
     """)
@@ -137,4 +155,4 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown("")
-st.caption("Built with Python · Streamlit · ZATCA regulations · Phase 1 MVP") 
+st.caption("Built with Python · Streamlit · Gemini AI · ZATCA regulations · Phase 2")
