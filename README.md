@@ -1,172 +1,115 @@
-"""
-KSA Tax AI — Home
-app.py · Entry point for Streamlit multipage app
-"""
+# KSA Tax AI
 
-import streamlit as st
+A Streamlit application that helps freelancers, SMEs, and ecommerce businesses in Saudi Arabia understand and manage VAT compliance under ZATCA (Zakat, Tax and Customs Authority) regulations.
 
-st.set_page_config(
-    page_title="KSA Tax AI",
-    page_icon="🇸🇦",
-    layout="centered",
-    initial_sidebar_state="expanded",
-)
+Live app: https://ksa-tax-ai-djrvpkcqeuvr2rmdgegws2.streamlit.app/
+Repository: https://github.com/BaqarW-tech/ksa-tax-ai
 
-# ── Styles ────────────────────────────────────────────────────────────────────
-st.markdown("""
-<style>
-    .hero-title {
-        font-size: 2.8rem;
-        font-weight: 800;
-        line-height: 1.1;
-        margin-bottom: 0.5rem;
-    }
-    .hero-accent { color: #00d4aa; }
-    .hero-sub {
-        color: #8ba3b0;
-        font-size: 1.1rem;
-        margin-bottom: 2rem;
-        line-height: 1.6;
-    }
-    .feature-card {
-        background: #0f2027;
-        border: 1px solid #1e3a4a;
-        border-radius: 12px;
-        padding: 1.25rem 1.5rem;
-        margin-bottom: 0.75rem;
-        transition: border-color 0.2s;
-    }
-    .feature-card:hover { border-color: #00d4aa44; }
-    .feature-icon { font-size: 1.5rem; margin-bottom: 0.4rem; }
-    .feature-title { font-weight: 700; color: #e8f4f8; margin-bottom: 0.25rem; }
-    .feature-desc  { color: #8ba3b0; font-size: 0.88rem; line-height: 1.5; }
-    .badge {
-        display: inline-block;
-        background: #00d4aa22;
-        color: #00d4aa;
-        border: 1px solid #00d4aa44;
-        border-radius: 20px;
-        padding: 0.15rem 0.7rem;
-        font-size: 0.78rem;
-        font-weight: 600;
-        margin-right: 0.4rem;
-        margin-bottom: 0.4rem;
-    }
-    .disclaimer {
-        background: #1a1a2e;
-        border-left: 3px solid #ffa040;
-        border-radius: 0 8px 8px 0;
-        padding: 0.75rem 1rem;
-        color: #8ba3b0;
-        font-size: 0.82rem;
-        line-height: 1.5;
-    }
-</style>
-""", unsafe_allow_html=True)
+## Overview
 
-# ── Hero ──────────────────────────────────────────────────────────────────────
-st.markdown("""
-<div class="hero-title">
-    🇸🇦 KSA <span class="hero-accent">Tax AI</span>
-</div>
-<div class="hero-sub">
-    A smart compliance assistant for Saudi VAT — built for freelancers,
-    SMEs, and ecommerce businesses navigating ZATCA regulations.
-</div>
-""", unsafe_allow_html=True)
+KSA Tax AI combines deterministic calculation tools with AI-assisted features to cover the practical VAT compliance workflow of a Saudi business: registration eligibility, invoice compliance, regulatory Q&A, and penalty exposure. Calculations and compliance rules are implemented as plain Python logic rather than delegated to a language model, so results are consistent and auditable. Language models are used only where judgment or natural-language understanding adds value: answering open-ended questions and extracting structured data from unstructured documents.
 
-st.markdown("""
-<span class="badge">VAT 15%</span>
-<span class="badge">ZATCA</span>
-<span class="badge">KSA SME</span>
-<span class="badge">All Phases Live</span>
-""", unsafe_allow_html=True)
+## Features
 
-st.divider()
+### VAT Calculator
+Adds VAT to a net amount or extracts VAT from a gross amount at the standard 15 percent rate.
 
-# ── Features ──────────────────────────────────────────────────────────────────
-st.markdown("#### Available Tools")
+### Registration Checker
+Determines whether VAT registration is mandatory, voluntary, or not applicable based on a business's annual taxable revenue, using ZATCA's SAR 375,000 mandatory and SAR 187,500 voluntary thresholds.
 
-features = [
-    {
-        "icon": "🧮",
-        "title": "VAT Calculator",
-        "desc": "Add VAT to a net amount, or reverse-extract VAT from a gross price. Instant results with a copy-friendly breakdown.",
-        "page": "VAT_Calculator",
-    },
-    {
-        "icon": "📋",
-        "title": "Registration Checker",
-        "desc": "Enter your annual revenue to find out if VAT registration is mandatory, voluntary, or not required under ZATCA thresholds.",
-        "page": "Registration_Checker",
-    },
-    {
-        "icon": "💬",
-        "title": "AI Tax Q&A",
-        "desc": "Ask a Gemini-powered assistant about VAT, ZATCA rules, and e-invoicing requirements in plain language.",
-        "page": "AI_Tax_QA",
-    },
-    {
-        "icon": "🧾",
-        "title": "Invoice Analyzer",
-        "desc": "Upload an invoice PDF to extract key fields and run a quick ZATCA e-invoicing compliance check.",
-        "page": "Invoice_Analyzer",
-    },
-    {
-        "icon": "📚",
-        "title": "ZATCA Document Search",
-        "desc": "Retrieval-augmented Q&A grounded in a curated ZATCA knowledge base, with sources shown for every answer.",
-        "page": "ZATCA_Search",
-    },
-    {
-        "icon": "✅",
-        "title": "Compliance Checklist",
-        "desc": "Answer a few questions about your business and get a personalized ZATCA VAT compliance checklist.",
-        "page": "Compliance_Checklist",
-    },
-    {
-        "icon": "⚠️",
-        "title": "Penalty Estimator",
-        "desc": "Estimate potential ZATCA penalty exposure for late registration, late filing, or e-invoicing violations.",
-        "page": "Penalty_Estimator",
-    },
-]
+### AI Tax Q&A
+A chat interface for questions about VAT, ZATCA regulations, and e-invoicing. Uses the Gemini API with a system prompt scoped to KSA tax topics.
 
-for f in features:
-    st.markdown(f"""
-    <div class="feature-card">
-        <div class="feature-icon">{f["icon"]}</div>
-        <div class="feature-title">{f["title"]}</div>
-        <div class="feature-desc">{f["desc"]}</div>
-    </div>
-    """, unsafe_allow_html=True)
+### Invoice Analyzer
+Accepts an invoice PDF, extracts text, and uses the Gemini API to pull structured fields (VAT registration number, invoice number, dates, amounts, VAT rate). Results are checked against a fixed set of ZATCA e-invoicing compliance rules implemented in code, not by the model.
 
-st.markdown("*Use the sidebar to navigate between tools.*")
+### ZATCA Document Search
+A retrieval-augmented question-answering feature. A curated set of markdown documents covering VAT registration, VAT rates and supply categories, Fatoora e-invoicing, penalties and filing deadlines, and Zakat versus corporate income tax are chunked and embedded using Gemini's text-embedding-004 model. User queries are embedded and matched against the corpus using cosine similarity, and the top-matching passages are passed to the model as context, with sources shown alongside each answer. The index is built once at runtime and cached for the life of the app instance, rather than requiring a separate offline build step.
 
-st.divider()
+### Compliance Checklist
+Generates a personalized VAT compliance checklist from a short business profile (revenue, registration status, residency, e-invoicing readiness, filing status). Logic is rule-based.
 
-# ── Roadmap ───────────────────────────────────────────────────────────────────
-with st.expander("🗺️ Feature Roadmap"):
-    st.markdown("""
-    | Phase | Feature | Status |
-    |-------|---------|--------|
-    | 1 | VAT Calculator | ✅ Live |
-    | 1 | Registration Checker | ✅ Live |
-    | 2 | AI Tax Q&A (Gemini API) | ✅ Live |
-    | 2 | Invoice PDF Analyzer | ✅ Live |
-    | 3 | RAG over ZATCA documents | ✅ Live |
-    | 4 | Compliance Checklist Generator | ✅ Live |
-    | 4 | VAT Penalty Estimator | ✅ Live |
-    """)
+### Penalty Estimator
+Produces an estimated penalty range for late VAT registration, late VAT return filing, or e-invoicing non-compliance, based on ZATCA's published penalty framework. Figures are estimates only and the tool states this explicitly in the interface.
 
-# ── Disclaimer ────────────────────────────────────────────────────────────────
-st.markdown("""
-<div class="disclaimer">
-    ⚠️ <strong>Disclaimer:</strong> This application is for informational purposes only and does not 
-    constitute legal or tax advice. Always consult a licensed KSA tax professional or visit 
-    <a href="https://zatca.gov.sa" target="_blank">zatca.gov.sa</a> for authoritative guidance.
-</div>
-""", unsafe_allow_html=True)
+## Tech Stack
 
-st.markdown("")
-st.caption("Built with Python · Streamlit · Gemini AI · ZATCA regulations · Phases 1–4 complete")
+- Python
+- Streamlit (multipage app)
+- Google Gemini API (gemini-2.0-flash for generation, text-embedding-004 for embeddings)
+- pdfplumber for PDF text extraction
+- numpy for similarity search
+
+## Project Structure
+
+```
+ksa-tax-ai/
+├── app.py                          # Home page and navigation
+├── pages/
+│   ├── 1_VAT_Calculator.py
+│   ├── 2_Registration_Checker.py
+│   ├── 3_AI_Tax_QA.py
+│   ├── 4_Invoice_Analyzer.py
+│   ├── 5_ZATCA_Search.py
+│   ├── 6_Compliance_Checklist.py
+│   └── 7_Penalty_Estimator.py
+├── knowledge_base/
+│   ├── vat_registration.md
+│   ├── vat_rates_categories.md
+│   ├── fatoora_einvoicing.md
+│   ├── penalties_deadlines.md
+│   └── zakat_vs_cit.md
+├── requirements.txt
+└── README.md
+```
+
+## Setup
+
+### Prerequisites
+- Python 3.12 (pinned via `runtime.txt` for Streamlit Cloud compatibility)
+- A Gemini API key from Google AI Studio
+
+### Local installation
+
+```
+git clone https://github.com/BaqarW-tech/ksa-tax-ai.git
+cd ksa-tax-ai
+pip install -r requirements.txt
+```
+
+Create `.streamlit/secrets.toml` in the project root:
+
+```
+GEMINI_API_KEY = "your-key-here"
+```
+
+Run the app:
+
+```
+streamlit run app.py
+```
+
+### Deployment (Streamlit Community Cloud)
+
+1. Connect the GitHub repository to Streamlit Community Cloud.
+2. Set the main file to `app.py`.
+3. Add `GEMINI_API_KEY` under App Settings → Secrets.
+4. Deploy. The app redeploys automatically on every push to the main branch.
+
+## Environment Variables
+
+| Variable | Required | Description |
+|---|---|---|
+| `GEMINI_API_KEY` | Yes | API key for Gemini generation and embedding calls, used by the Q&A, Invoice Analyzer, and Document Search pages |
+
+## Status
+
+All four planned phases are implemented: core VAT calculation tools, AI-assisted Q&A and invoice extraction, retrieval-augmented search over ZATCA documentation, and a compliance checklist with penalty estimation.
+
+## Disclaimer
+
+This application is for informational purposes only and does not constitute legal or tax advice. VAT rules, thresholds, and penalties referenced in this project reflect ZATCA regulations as understood at the time of writing and may change. Users should confirm current requirements with a licensed KSA tax professional or at zatca.gov.sa before relying on any output from this application.
+
+## License
+
+MIT License 
